@@ -1,4 +1,4 @@
-import { Avatar, Flex, Heading, Text, Skeleton } from "@chakra-ui/core";
+import { Avatar, Flex, Text } from "@chakra-ui/core";
 
 //displays an individual workplace user's name and profile picture,
 export default function User({ user }) {
