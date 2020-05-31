@@ -15,7 +15,7 @@ export default function Home() {
     async function fetchData() {
       try {
         const res = await fetch("/api/users");
-        const { users } = await res.json();
+        const users = await res.json();
         setUsers(users);
       } catch (e) {
         console.log(e);

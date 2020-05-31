@@ -14,11 +14,13 @@ export default function User({ user }) {
       <Avatar
         size="md"
         name="Ryan Florence"
-        src={user.image_72}
+        src={user.profile.image_72}
         marginRight="12px"
       />
       <Text fontSize="md">
-        {user.display_name ? user.display_name : user.real_name}
+        {user.profile.display_name
+          ? user.profile.display_name
+          : user.profile.real_name}
       </Text>
     </Flex>
   );
