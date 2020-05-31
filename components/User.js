@@ -13,7 +13,7 @@ export default function User({ user }) {
     >
       <Avatar
         size="md"
-        name="Ryan Florence"
+        name={user.profile.real_name}
         src={user.profile.image_72}
         marginRight="12px"
       />

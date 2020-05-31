@@ -6,7 +6,7 @@ import { Flex, Text, Skeleton } from "@chakra-ui/core";
 //takes in array of users, each with their own attributes
 export default function UserList({ users }) {
   //Loading State/Users is undefined
-  if (!users) return <Skeleton height="50px" rounded="lg" my="10px" />;
+  if (!users) return <Skeleton height="70px" rounded="lg" my="10px" />;
 
   //No users found
   if (!users.length)
@@ -24,5 +24,8 @@ export default function UserList({ users }) {
     );
 
   //return list of users
-  return users.map((user) => <User key={user.id} user={user} />);
+  return users.map(
+    (user) =>
+      !user.is_bot && !user.deleted && <User key={user.id} user={user} />
+  );
 }
