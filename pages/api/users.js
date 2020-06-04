@@ -42,7 +42,7 @@ handler.post(async (req, res) => {
           res.status(200).end("Sucessfully updated or created user");
         });
       } else {
-        res.status(401).end("UNAUTHORIZED user");
+        res.status(401).end("UNAUTHORIZED USER");
       }
     }
   } catch (e) {

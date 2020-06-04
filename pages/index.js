@@ -16,7 +16,12 @@ export default function Home() {
       try {
         const res = await fetch("/api/users");
         const users = await res.json();
-        setUsers(users);
+        if (res.ok) {
+          setUsers(users);
+        } else {
+          //if error, default to no users shown/found state
+          setUsers([]);
+        }
       } catch (e) {
         console.log(e);
       }

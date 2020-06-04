@@ -1,6 +1,7 @@
 import { Avatar, Flex, Text } from "@chakra-ui/core";
 
 //displays an individual workplace user's name and profile picture,
+//takes in a user object, idenitical to the structure of the one the slack api sends back
 export default function User({ user }) {
   return (
     <Flex backgroundColor="gray.100" rounded="lg" marginBottom="12px">

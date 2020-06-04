@@ -1,3 +1,11 @@
+import React from "react";
+import { shallow, configure } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+
+import UserList from "../components/UserList";
+import User from "../components/User";
+import { Flex, Text, Skeleton } from "@chakra-ui/core";
+
 const testUsers = {
   users: [
     {
@@ -37,31 +45,29 @@ const testUsers = {
   ],
 };
 
-//returns array of user objects, takes in database object as argument
-export default async function getUsers(db) {
-  try {
-    const usersCollection = await db.collection("users");
-    const users = await usersCollection.find({}).toArray();
+test("Userlist displays correctly in normal circumstances", () => {
+  configure({ adapter: new Adapter() });
 
-    //if no users are in database, fetch users from slack api then add to database
-    try {
-      if (!users.length) {
-        const slackUsersUri = `https://slack.com/api/users.list?token=${process.env.SLACKTOKEN}`;
-        const { members } = await fetch(slackUsersUri).then((res) =>
-          res.json()
-        );
+  const userlist = shallow(<UserList users={testUsers.users} />);
 
-        usersCollection.insertMany(members);
+  expect(userlist.contains(<User user={testUsers.users[0]} />)).toBe(true);
+  expect(userlist.contains(<User user={testUsers.users[1]} />)).toBe(true);
+});
 
-        return members;
-      }
-    } catch (e) {
-      throw new Error(e);
-    }
+test("Userlist displays correct loading state", () => {
+  configure({ adapter: new Adapter() });
 
-    //if users are in database, simply return
-    return users;
-  } catch (e) {
-    throw new Error();
-  }
-}
+  const userlist = shallow(<UserList users={null} />);
+
+  expect(
+    userlist.contains(<Skeleton height="70px" rounded="lg" my="10px" />)
+  ).toBe(true);
+});
+
+test("Userlist displays correct state for no users/error from api", () => {
+  configure({ adapter: new Adapter() });
+
+  const userlist = shallow(<UserList users={[]} />);
+
+  expect(userlist.text()).toBe("No Users Found");
+});
